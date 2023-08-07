@@ -1,11 +1,12 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
+from app.api.v1.auth.auth_bearer import JWTBearer
 
 router = APIRouter()
 
 from fastapi import HTTPException
 import requests
 
-get_cars_router = APIRouter(tags=["Get Cars"])
+get_cars_router = APIRouter(dependencies=[Depends(JWTBearer())], tags=["Get Cars"])
 
 
 @get_cars_router.get("/car-brands", response_model=list[str])
