@@ -9,6 +9,12 @@ class Settings(BaseSettings):
     SECRET_KEY: str
     JWT_ALGORITHM: str
     DATABASE_URL: str
+    RABBITMQ_DEFAULT_USER: str
+    RABBITMQ_DEFAULT_PASS: str
+    MONGODB_NAME: str
+    MONGODB_URL: str
+    RABBITMQ_HOST: str
+    QUEUE_NAME: str
 
     class Config:
         env_file = ".env"
