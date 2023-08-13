@@ -39,7 +39,7 @@ def upgrade():
         "years",
         sa.Column("id", sa.Integer, primary_key=True, index=True),
         sa.Column("name", sa.String, index=True),
-        sa.Column("model_id", sa.Integer, sa.ForeignKey("models.id")),
+        sa.Column("vehicle_model_id", sa.Integer, sa.ForeignKey("models.id")),
     )
 
     # vehicle_values table

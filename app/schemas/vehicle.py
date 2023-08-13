@@ -16,7 +16,7 @@ class Brand(BrandBase):
     id: int
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
 class ModelBase(BaseModel):
@@ -32,12 +32,12 @@ class Model(ModelBase):
     id: int
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
 class YearBase(BaseModel):
     name: str
-    model_id: int
+    vehicle_model_id: int
 
 
 class YearCreate(YearBase):
@@ -48,7 +48,7 @@ class Year(YearBase):
     id: int
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
 class VehicleValueBase(BaseModel):
@@ -72,4 +72,10 @@ class VehicleValue(VehicleValueBase):
     id: int
 
     class Config:
-        orm_mode = True
+        from_attributes = True
+
+
+class VehicleUpdate(BaseModel):
+    vehicle_id: int
+    model: Optional[str]
+    observations: Optional[str]

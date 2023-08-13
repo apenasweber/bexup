@@ -26,7 +26,7 @@ class Year(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String, index=True)
-    model_id = Column(Integer, ForeignKey("models.id"))
+    vehicle_model_id = Column(Integer, ForeignKey("models.id"))
     model = relationship("Model", back_populates="years")
     vehicle_value = relationship("VehicleValue", uselist=False, back_populates="year")
 
