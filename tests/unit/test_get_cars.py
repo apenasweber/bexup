@@ -1,6 +1,6 @@
 import pytest
 import httpx
-from app.api_1.v1.endpoints.car_brands import get_cars_router
+from app.api_1.v1.endpoints.car_brands import get_car_brands as get_cars_router
 from fastapi import HTTPException
 
 

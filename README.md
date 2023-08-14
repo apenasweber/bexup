@@ -2,6 +2,20 @@
 
 Este sistema é composto por duas APIs principais que interagem com o serviço da FIPE para obter informações sobre veículos. O sistema também utiliza filas para processamento assíncrono.
 
+## Rodando a aplicação
+
+1.  `git clone git@github.com:apenasweber/bexup.git`
+2.  `cd bexup`
+3.  Renomeie `".env-example"` para `".env"`
+4.  Com make você pode rodar os testes unitários: `make test`. Você pode também usar make up para subir a aplicação e make down para derrubar a aplicação.
+5.  Após usar o `make up` , acesse [http://localhost:8000/docs](http://localhost:8000/docs) para testar os endpoints manualmente.
+6.  Clique no endpoint /login
+7.  Clique em "Try it out"
+8.  Insira username(username) e password(password) e clique em EXECUTE.
+9.  Você vai receber o token, copie-o.
+10. No topo da página, do lado direito, clique em "Authorize" e cole o token ali.
+11. Agora você pode usar todos os endpoints autenticados (20 minutos de expiração do token).
+
 ## API-1
 
 ### Descrição:
