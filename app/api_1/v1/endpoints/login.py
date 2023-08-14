@@ -2,7 +2,7 @@ from typing import List
 
 from fastapi import APIRouter, HTTPException
 
-from app.api.v1.auth.auth_handler import signJWT
+from app.api_1.v1.auth.auth_handler import signJWT
 from app.core.settings import settings
 
 login_router = APIRouter(tags=["Login"])

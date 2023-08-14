@@ -1,23 +1,79 @@
-version: "3"
+version: "3.8"
+
 services:
   db:
     image: postgres
     environment:
+      DATABASE_URL: ${DATABASE_URL}
       POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
       POSTGRES_DB: ${DB_NAME}
     ports:
       - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - backend
+    restart: always
 
   api:
     build: .
-    restart: always
     environment:
       DB_HOST: ${DB_HOST}
       DB_NAME: ${DB_NAME}
       DB_USER: ${DB_USER}
       DB_PASSWORD: ${DB_PASSWORD}
+      RABBITMQ_HOST: rabbitmq
     ports:
       - "8000:8000"
     depends_on:
-      - db
+      db:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_started
+    networks:
+      - backend
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 256M
+    restart: always
+
+  rabbitmq:
+    image: "rabbitmq:3-management"
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    environment:
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS}
+      RABBITMQ_HOST: rabbitmq
+    volumes:
+      - rabbitmqdata:/var/lib/rabbitmq
+    networks:
+      - backend
+    restart: always
+
+  mongodb:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    environment:
+      MONGODB_NAME: ${MONGODB_NAME}
+      MONGODB_URL: ${MONGODB_URL}
+    volumes:
+      - mongodb_data:/data/db
+
+networks:
+  backend:
+
+volumes:
+  pgdata:
+  rabbitmqdata:
+  mongodb_data:

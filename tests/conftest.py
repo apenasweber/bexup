@@ -1,7 +1,7 @@
 # tests/conftest.py
 import pytest
 
-from app.api.v1.auth.auth_bearer import JWTBearer
+from app.api_1.v1.auth.auth_bearer import JWTBearer
 
 # Sample valid and invalid tokens for testing
 VALID_TOKEN = "valid.token.for.testing"
